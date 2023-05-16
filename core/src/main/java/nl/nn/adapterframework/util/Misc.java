@@ -33,6 +33,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.StringTokenizer;
+import java.util.stream.Stream;
 
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.time.DurationFormatUtils;
@@ -597,5 +598,14 @@ public class Misc {
 		InputSource inputSource = new InputSource(url.openStream());
 		inputSource.setSystemId(url.toExternalForm());
 		return inputSource;
+	}
+	
+	public static boolean exclusiveOr(Boolean... params) {
+		if(params == null) 
+			return false;
+
+		return Stream.of(params)
+				.filter(b -> b)
+				.count() == 1;
 	}
 }

@@ -3,6 +3,7 @@ package nl.nn.adapterframework.util;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 import java.io.IOException;
@@ -312,5 +313,52 @@ public class MiscTest {
 		assertThat(configurationResources, Matchers.startsWith("<dummy xml=\"file\" />"));
 		String server = Misc.getConfigurationServer();
 		assertThat(server, Matchers.startsWith("<?xml version=\"1.0\" encoding=\"UTF-8\"?>"));
+	}
+
+	/**
+	 * Method: boolean exclusiveOr(Boolean... params)
+	 */
+	@Test
+	public void testExclusiveOrAllFalseShouldReturnFalse() throws Exception {
+		boolean result = Misc.exclusiveOr(false, false, false);
+		assertFalse(result);
+	}
+
+	/**
+	 * Method: boolean exclusiveOr(Boolean... params)
+	 */
+	@Test
+	public void testExclusiveOrAllTrueShouldReturnFalse() throws Exception {
+		// covers the case (true, true, true) being processed as ((true, true), true) -> ((false), true) -> (true)
+		boolean result = Misc.exclusiveOr(true, true, true);
+		assertFalse(result);
+	}
+
+	/**
+	 * Method: boolean exclusiveOr(Boolean... params)
+	 */
+	@Test
+	public void testExclusiveOrSingleTrueShouldReturnTrue() throws Exception {
+		boolean result = Misc.exclusiveOr(true, false, false);
+		assertTrue(result);
+	}
+
+	/**
+	 * Method: boolean exclusiveOr(Boolean... params)
+	 */
+	@Test
+	public void testExclusiveOrMultipleTrueShouldReturnFalse() throws Exception {
+		boolean result = Misc.exclusiveOr(true, false, true);
+		assertFalse(result);
+	}
+
+	/**
+	 * Method: boolean exclusiveOr(Boolean... params)
+	 */
+	@Test
+	@SuppressWarnings("all")
+	public void testExclusiveOrNullShouldReturnFalse() throws Exception {
+		boolean result = Misc.exclusiveOr(null);
+		assertFalse(result);
 	}
 }

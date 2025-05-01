@@ -1,0 +1,47 @@
+<!--
+Download ibisdoc.xsd from the Ibis console (via /rest/webservices). You can
+refer to it directly in the xsi:noNamespaceSchemaLocation attribute but it is
+better to refer to it using Eclipse, Window, Preferences, XML, XML Catalog,
+Add..., Location: path/to/ibisdoc.xsd, Key:
+http://schemas.ibissource.org/ibisdoc.xsd, OK
+-->
+<Module
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:noNamespaceSchemaLocation="http://schemas.ibissource.org/ibisdoc.xsd"
+	name="My first beautiful configuration"
+	>
+	<Adapter name="HandlebarsExampleWsdl2SoapEndpoint" active="${HandlebarsExampleWsdl2SoapEndpoint.active}">
+		<Receiver
+			name="HandlebarsExampleWsdl2SoapEndpoint"
+			>
+			<ApiListener
+				name="HandlebarsExampleWsdl2SoapEndpoint"
+				uriPattern="/handlebars/example2"
+			/>
+		</Receiver>
+		<Pipeline>
+			<Exits>
+				<Exit name="EXIT" state="SUCCESS"/>
+				<Exit name="ERROR" state="ERROR"/>
+			</Exits>
+			
+			<FixedResultPipe 
+				name="ReadFile" 
+				filename="example2/zkn0310_vrijeBerichten_zs-dms.wsdl"
+				>
+				<Forward name="EXIT" path="HandlebarsPipe" />
+			</FixedResultPipe>
+
+            <pipe
+				name="HandlebarsPipe"
+				className="nl.nn.adapterframework.pipes.HandlebarsPipe"
+				templateName="zaakbrug-soap-endpoint-adapter"
+				openApiFilename="zaken/openapi.yaml"
+				>
+				<Param name="bindingName" xpathExpression="/definitions/binding/@name" />
+				<forward name="success" path="EXIT"/>
+			</pipe>
+			
+		</Pipeline>
+	</Adapter>
+</Module>

@@ -169,6 +169,8 @@ public class Parameter implements IConfigurable, IWithParameters {
 		/** Renders XML as a DOM document; similar to <code>node</code>
 			with the distinction that there is always a common root node (required for XSLT 2.0) */
 		DOMDOC(true),
+		
+		JSONNODE(true),
 
 		/** Converts the result to a Date, by default using formatString <code>yyyy-MM-dd</code>.
 		 * When applied as a JDBC parameter, the method setDate() is used */

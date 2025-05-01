@@ -3,4 +3,6 @@
 	<Include ref="ConfigurationHelloWorlds.xml"/>
 	<Include ref="ConfigurationHelloBeautifulWorld.xml"/>
 	<Include ref="ConfigurationManualExerciseMundo.xml"/>
+	<Include ref="HandlebarsExampleOpenApi.xml"/>
+	<Include ref="HandlebarsExampleWsdl2SoapEndpoint.xml"/>
 </Configuration>

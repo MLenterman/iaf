@@ -23,6 +23,8 @@
 	<bean name="configurationMetrics" class="nl.nn.adapterframework.statistics.MetricsInitializer" />
 
 	<bean name="sharedResources" class="nl.nn.adapterframework.core.SharedResources" scope="singleton"/>
+	
+	<bean name="handlebarsEngine" class="nl.nn.adapterframework.handlebars.HandlebarsEngine" scope="singleton" lazy-init="true" />
 
 	<bean name="adapterManager" class="nl.nn.adapterframework.configuration.AdapterManager" autowire="byType" scope="singleton" />
 	<bean name="scheduleManager" class="nl.nn.adapterframework.configuration.ScheduleManager" autowire="byType" scope="singleton" />

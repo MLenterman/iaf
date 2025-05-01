@@ -15,15 +15,18 @@
 				className="nl.nn.adapterframework.receivers.JavaListener"
 			/>
 		</receiver>
-		<pipeline firstPipe="HelloWorld">
+		<pipeline firstPipe="HandlebarsPipeTest">
 			<exits>
 				<exit name="EXIT" state="success"/>
 			</exits>
 			<pipe
-				name="HelloWorld"
-				className="nl.nn.adapterframework.pipes.FixedResultPipe"
-				returnString="Hello World"
+				name="HandlebarsPipeTest"
+				className="nl.nn.adapterframework.pipes.HandlebarsPipe"
+				templateName="pipe"
+				openApiFilename="zaken/openapi.yaml"
 				>
+				<Param name="name" value="handlebars" />
+				<Param name="description" value="get a handle on it" />
 				<forward name="success" path="EXIT"/>
 			</pipe>
 		</pipeline>
